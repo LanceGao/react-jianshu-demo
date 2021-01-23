@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { GlobalStyle } from './style.js';
 import App from './App';
-import { IconfontStyle } from './statics/iconfont/iconfont';
+import { Provider } from 'react-redux';
+import store from './store'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <IconfontStyle/>
-      <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 
