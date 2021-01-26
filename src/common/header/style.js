@@ -95,6 +95,60 @@ export const NavSearch = styled.input.attrs({
         width: 160px;
     }
 `;
+export const SearchInfo = styled.div`
+    position: absolute;
+    left: 30px;
+    top: 56px;
+    width: 240px;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,.2);
+    z-index: 9;
+    // &:before {
+    //     position: absolute;
+    //     content: '';
+    //     width: 10px;
+    //     height: 10px;
+    //     left: 20px;
+    //     top: -4px;
+    //     background-color: #fff;
+    //     box-shadow: 0 0 8px rgba(0,0,0,.2);
+    //     transform: rotate(45deg);
+    //     z-index: 1;
+    // }
+`;
+export const SearchTitle = styled.div`
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #787878;
+    margin-top: 10px;
+`;
+export const SearchTitleSwitch = styled.span`
+    float: right;
+    line-height: 20px;
+    font-size: 13px;
+    color: #969696;
+    cursor: pointer;
+`;
+export const SearchList = styled.ul`
+    margin-top: 12px;
+    overflow: hidden;
+`;
+export const SearchListItem = styled.a`
+    float: left;
+    padding: 5px 10px;
+    margin-right: 8px;
+    margin-bottom: 15px;
+    color: #787878;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+
+`;
 export const Adition = styled.div`
     position: absolute;
     top: 0;
