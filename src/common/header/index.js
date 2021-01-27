@@ -19,6 +19,7 @@ import {
  } from './style'
  class Header extends Component {
     render() {
+        const {focused, handleInputFocus, handleInputBlur} = this.props
         return (
             <HeaderWrapper>
                 <Logo />
@@ -32,15 +33,15 @@ import {
                     <NavSearchWrapper>
                         <CSSTransition
                         timeout={300}
-                        in={this.props.focused}
+                        in={focused}
                         classNames="slide">
                             <NavSearch
-                                className={this.props.focused ? 'focused' : ''}
-                                onFocus={this.props.handleInputFocus}
-                                onBlur={this.props.handleInputBlur} />
+                                className={focused ? 'focused' : ''}
+                                onFocus={handleInputFocus}
+                                onBlur={handleInputBlur} />
                         </CSSTransition>
-                        <span className={this.props.focused ? 'iconfont focused' : 'iconfont'}>&#xe633;</span>
-                        {this.getSearchList(this.props.focused)}
+                        <span className={focused ? 'iconfont focused' : 'iconfont'}>&#xe633;</span>
+                        {this.getSearchList(focused)}
                     </NavSearchWrapper>
                 </Nav>
                 <Adition>
@@ -53,23 +54,28 @@ import {
          )
     }
     getSearchList() {
-        if (this.props.focused) {
+        const {focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangeList} = this.props;
+        const newList = list.toJS();
+        const pageList = [];
+        for (let i = (page - 1) * 5; i < page * 5; i++) {
+            if (newList[i]) {
+                pageList.push(<SearchListItem key={newList[i]}>{newList[i]}</SearchListItem>)
+            }
+        }
+        console.log('flag', focused, mouseIn)
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
                     <SearchTitle>
                         热门搜索
-                        <SearchTitleSwitch>
+                        <SearchTitleSwitch onClick={() => {handleChangeList(page, totalPage)}}>
                             换一批
                         </SearchTitleSwitch>
                     </SearchTitle>
                     <SearchList>
-                        {
-                            this.props.list.map(item => {
-                                return (
-                                    <SearchListItem key={item}>{item}</SearchListItem>
-                                )
-                            })
-                        }
+                        {pageList}
                     </SearchList>
                 </SearchInfo>
             )
@@ -83,7 +89,10 @@ const mapStateToProps = (state) => {
     return {
         focused: state.getIn(['header', 'focused']),
         // focused: state.get('header').get('focused')
-        list: state.getIn(['header', 'list'])
+        list: state.getIn(['header', 'list']),
+        page: state.getIn(['header', 'page']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        mouseIn: state.getIn(['header', 'mouseIn']),
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -94,6 +103,20 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleInputBlur() {
             dispatch(actionCreators.searchBlur())
+        },
+        handleMouseEnter() {
+            dispatch(actionCreators.mouseEnter())
+        },
+        handleMouseLeave() {
+            dispatch(actionCreators.mouseLeave())
+        },
+        handleChangeList(page, totalPage) {
+            console.log('llll', page, totalPage)
+            if (page < totalPage) {
+                dispatch(actionCreators.changeHistoryList(page + 1))
+            } else {
+                dispatch(actionCreators.changeHistoryList(1))
+            }
         }
     }
 }
