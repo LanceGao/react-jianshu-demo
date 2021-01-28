@@ -19,7 +19,7 @@ import {
  } from './style'
  class Header extends Component {
     render() {
-        const {focused, handleInputFocus, handleInputBlur} = this.props
+        const {focused, list, handleInputFocus, handleInputBlur} = this.props
         return (
             <HeaderWrapper>
                 <Logo />
@@ -37,10 +37,10 @@ import {
                         classNames="slide">
                             <NavSearch
                                 className={focused ? 'focused' : ''}
-                                onFocus={handleInputFocus}
+                                onFocus={() => handleInputFocus(list)}
                                 onBlur={handleInputBlur} />
                         </CSSTransition>
-                        <span className={focused ? 'iconfont focused' : 'iconfont'}>&#xe633;</span>
+                        <span className={focused ? 'iconfont focused search-icon' : 'iconfont search-icon'}>&#xe633;</span>
                         {this.getSearchList(focused)}
                     </NavSearchWrapper>
                 </Nav>
@@ -55,14 +55,13 @@ import {
     }
     getSearchList() {
         const {focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangeList} = this.props;
-        const newList = list.toJS();
+        const newList = list.toJS(); // 将immutable对象转换为普通对象
         const pageList = [];
         for (let i = (page - 1) * 5; i < page * 5; i++) {
             if (newList[i]) {
                 pageList.push(<SearchListItem key={newList[i]}>{newList[i]}</SearchListItem>)
             }
         }
-        console.log('flag', focused, mouseIn)
         if (focused || mouseIn) {
             return (
                 <SearchInfo
@@ -70,7 +69,8 @@ import {
                     onMouseLeave={handleMouseLeave}>
                     <SearchTitle>
                         热门搜索
-                        <SearchTitleSwitch onClick={() => {handleChangeList(page, totalPage)}}>
+                        <SearchTitleSwitch onClick={() => {handleChangeList(page, totalPage, this.spinIcon)}}>
+                            <span ref={(icon) => {this.spinIcon = icon}} className="iconfont spin-icon">&#xe685;</span>
                             换一批
                         </SearchTitleSwitch>
                     </SearchTitle>
@@ -97,8 +97,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleInputFocus() {
-            dispatch(actionCreators.getHistoryList())
+        handleInputFocus(list) {
+            (list.size === 0) && dispatch(actionCreators.getHistoryList())
             dispatch(actionCreators.searchFocus())
         },
         handleInputBlur() {
@@ -110,8 +110,15 @@ const mapDispatchToProps = (dispatch) => {
         handleMouseLeave() {
             dispatch(actionCreators.mouseLeave())
         },
-        handleChangeList(page, totalPage) {
-            console.log('llll', page, totalPage)
+        handleChangeList(page, totalPage, spin) {
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+            if (originAngle) {
+                originAngle = parseInt(originAngle);
+            } else {
+                originAngle = 0;
+            }
+            console.log('deg', originAngle)
+            spin.style.transform = `rotate(${originAngle+180}deg)`
             if (page < totalPage) {
                 dispatch(actionCreators.changeHistoryList(page + 1))
             } else {
