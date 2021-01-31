@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import * as constant from './constants'
 
 const defaultState = fromJS({
     topicList: [],
@@ -8,9 +9,8 @@ const defaultState = fromJS({
 })
 
 export const reducer = (state = defaultState, action) => {
-    console.log('changedata', action)
     switch(action.type) {
-        case 'change_home_data':
+        case constant.CHANGE_HOME_DATA:
             return state.merge({
                 topicList: action.topicList,
                 articleList: action.articleList,

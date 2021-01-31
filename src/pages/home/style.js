@@ -13,7 +13,7 @@ export const HomeLeft = styled.div`
     margin-left: 15px;
     margin-top: 30px;
     .banner-img {
-        width: 625px;
+        width: 640px;
         height: 270px;
         border-radius: 4px;
         background: url(${banner}) left top no-repeat;

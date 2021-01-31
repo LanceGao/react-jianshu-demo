@@ -40,7 +40,6 @@ class List extends Component {
 }
 
 const mapState = (state) => {
-    console.log('listar', state)
     return {
         articleList: state.getIn(['home', 'articleList'])
     }
