@@ -7,6 +7,7 @@ import {
     WriterItem,
     WriterInfo,
 } from '../style.js';
+import headImage from '../../../statics/writer_headimg4.webp';
 
 class Writer extends Component {
     render() {
@@ -24,14 +25,14 @@ class Writer extends Component {
                     {
                         writerList.map(item => {
                             return (
-                                <WriterItem key={item.get('id')}>
+                                <WriterItem key={item.id}>
                                     <WriterInfo>
-                                        <img className="writer-headimg" src={item.get('headImage')} alt="" />
+                                        <img className="writer-headimg" src={headImage} alt="" />
                                         <div className="writer-info-wrapper">
-                                            <p className="writer-name">{item.get('name')}</p>
+                                            <p className="writer-name">{item.name}</p>
                                             <div className="writer-desc">
-                                                <span className="writting-num">写来{item.get('writtingNum')}字</span>
-                                                <span className="like-num"> {item.get('likeNum')}喜欢</span>
+                                                <span className="writting-num">写来{item.writtingNum}字</span>
+                                                <span className="like-num"> {item.likeNum}喜欢</span>
                                             </div>
                                         </div>
                                     </WriterInfo>

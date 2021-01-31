@@ -7,6 +7,7 @@ import {
     DownloadBox,
 } from '../style.js';
 import downloadPic from '../../../statics/download_pic.png';
+import recommendPic from '../../../statics/recommend_pic.png';
 
 class Recommend extends Component {
     render() {
@@ -16,8 +17,8 @@ class Recommend extends Component {
                 {
                     recommendList.map(item => {
                         return (
-                            <RecommendItem key={item.get('id')}>
-                                <img className="recommend-pic" src={item.get('imgUrl')} alt="" />
+                            <RecommendItem key={item.id}>
+                                <img className="recommend-pic" src={recommendPic} alt="" />
                             </RecommendItem>
                         )
                     })

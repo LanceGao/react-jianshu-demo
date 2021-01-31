@@ -16,18 +16,16 @@ class List extends Component {
                     {
                         articleList.map((item) => {
                             return (
-                                <ArticleItem key={item.get('id')}>
+                                <ArticleItem key={item.id}>
                                     <ArticleInfo>
-                                        <h3 className="article-title">{item.get('title')}</h3>
-                                        <p className="article-desc">{item.get('desc')}</p>
+                                        <h3 className="article-title">{item.title}</h3>
+                                        <p className="article-desc">{item.desc}</p>
                                     </ArticleInfo>
-                                    {/* {this.showPic(item)} */}
-                                    <img className="pic" src={item.get('imgUrl') ? item.get('imgUrl') : articlePic} alt="" />
+                                    <img className="pic" src={articlePic} alt="" />
                                 </ArticleItem>
                             )
                         })
                     }
-                    
                 </ArticleList>
             </div>
         )
@@ -42,6 +40,7 @@ class List extends Component {
 }
 
 const mapState = (state) => {
+    console.log('listar', state)
     return {
         articleList: state.getIn(['home', 'articleList'])
     }
