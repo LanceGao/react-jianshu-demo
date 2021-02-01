@@ -10,7 +10,12 @@ import {
     HomeWrapper,
     HomeLeft,
     HomeRight,
-} from './style'
+    BackTop,
+} from './style';
+
+const backTop = () => {
+    document.documentElement.scrollTo(0, 0);
+}
 
 class Home extends Component {
     render() {
@@ -25,20 +30,42 @@ class Home extends Component {
                     <Recommend></Recommend>
                     <Writer></Writer>
                 </HomeRight>
+                {this.props.showBackTopBtn ? <BackTop onClick={this.props.backTop}>返回顶部</BackTop> : ''}
             </HomeWrapper>
         )
     }
     componentDidMount() {
         this.props.getHomeInfo()
+        this.bindEvents()
+    }
+    bindEvents() {
+        window.addEventListener('scroll', () => {
+            console.log('scroll', document.documentElement.scrollTop)
+            if (document.documentElement.scrollTop > 200) {
+                this.props.showBackTop(true)
+            } else {
+                this.props.showBackTop(false)
+            }
+        })
     }
 }
+
+const mapState = (state) => ({
+    showBackTopBtn: state.getIn(['home', 'showBackTopBtn'])
+})
 
 const mapDispatch = (dispatch) => {
     return {
         getHomeInfo() {
             dispatch(actionCreators.getHomeInfo())
+        },
+        backTop() {
+            backTop(dispatch)
+        },
+        showBackTop(show) {
+            dispatch(actionCreators.showBackTop(show))
         }
     }
 }
 
-export default connect(null, mapDispatch)(Home);
+export default connect(mapState, mapDispatch)(Home);

@@ -225,3 +225,19 @@ export const WriterInfo = styled.div`
         }
     }
 `;
+
+// 返回顶部
+export const BackTop = styled.div`
+    position: fixed;
+    right: 30px;
+    bottom: 60px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+`;

@@ -32,3 +32,8 @@ export const getMoreArticleList = (articlePage) => {
         })
     }
 }
+
+export const showBackTop = (show) => ({
+    type: constants.CHANGE_BACK_TOP,
+    show
+})

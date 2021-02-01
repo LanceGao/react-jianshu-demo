@@ -6,7 +6,8 @@ const defaultState = fromJS({
     articleList: [],
     recommendList: [],
     writerList: [],
-    articlePage: 1
+    articlePage: 1,
+    showBackTopBtn: false
 })
 
 export const reducer = (state = defaultState, action) => {
@@ -24,6 +25,8 @@ export const reducer = (state = defaultState, action) => {
                 articleList: state.get('articleList').concat(action.articleList),
                 articlePage: action.articlePage
             })
+        case constant.CHANGE_BACK_TOP:
+            return state.set('showBackTopBtn', action.show)
         default:
             return state
     }
