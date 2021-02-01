@@ -9,11 +9,26 @@ const changeHomeData = (result) => ({
     writerList: result.writerList
 })
 
+const addHomeData = (result, articlePage) => ({
+    type: constants.ADD_HOME_DATA,
+    articleList: result,
+    articlePage: articlePage
+})
+
 export const getHomeInfo = () => {
     return (dispatch) => {
         axios.get('/api/home.json').then(res => {
             const result = res.data.data;
             dispatch(changeHomeData(result))
+        })
+    }
+}
+
+export const getMoreArticleList = (articlePage) => {
+    return (dispatch) => {
+        axios.get('/api/moreHomeList.json?page=' + articlePage).then(res => {
+            const result = res.data.data;
+            dispatch(addHomeData(result, articlePage + 1))
         })
     }
 }

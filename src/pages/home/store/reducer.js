@@ -5,7 +5,8 @@ const defaultState = fromJS({
     topicList: [],
     articleList: [],
     recommendList: [],
-    writerList: []
+    writerList: [],
+    articlePage: 1
 })
 
 export const reducer = (state = defaultState, action) => {
@@ -16,6 +17,12 @@ export const reducer = (state = defaultState, action) => {
                 articleList: action.articleList,
                 recommendList: action.recommendList,
                 writerList: action.writerList
+            })
+        case constant.ADD_HOME_DATA:
+            // return state.set('articleList', state.get('articleList').concat(action.articleList))
+            return state.merge({
+                articleList: state.get('articleList').concat(action.articleList),
+                articlePage: action.articlePage
             })
         default:
             return state

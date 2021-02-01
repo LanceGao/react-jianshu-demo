@@ -95,6 +95,18 @@ export const ArticleInfo = styled.div`
         color: #999;
     }
 `;
+export const MoreArticle = styled.div`
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background: #a5a5a5;
+    border-radius: 20px;
+    margin: 30px 0;
+    cursor: pointer;
+`; 
 
 // 推荐列表
 export const RecommendWrapper = styled.div`

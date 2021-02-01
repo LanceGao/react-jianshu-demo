@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { actionCreators } from '../store';
 import {
     ArticleList,
     ArticleItem,
     ArticleInfo,
+    MoreArticle,
 } from '../style.js';
 import articlePic from '../../../statics/article_pic.jpeg';
 
 class List extends Component {
     render() {
-        const { articleList } = this.props;
+        const { articleList, articlePage, getMoreArticleList } = this.props;
         return (
             <div>
                 <ArticleList>
@@ -27,6 +29,9 @@ class List extends Component {
                         })
                     }
                 </ArticleList>
+                <MoreArticle onClick={() => {getMoreArticleList(articlePage)}}>
+                    更多文章
+                </MoreArticle>
             </div>
         )
     }
@@ -40,9 +45,16 @@ class List extends Component {
 }
 
 const mapState = (state) => {
+    console.log('state', state)
     return {
-        articleList: state.getIn(['home', 'articleList'])
+        articleList: state.getIn(['home', 'articleList']),
+        articlePage: state.getIn(['home', 'articlePage'])
     }
 }
+const mapDispatch = (dispatch) => ({
+    getMoreArticleList(articlePage) {
+        dispatch(actionCreators.getMoreArticleList(articlePage))
+    }
+})
 
-export default connect(mapState, null)(List);
+export default connect(mapState, mapDispatch)(List);
