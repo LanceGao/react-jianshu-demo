@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actionCreators } from '../store';
 import {
     ArticleList,
@@ -9,7 +10,7 @@ import {
 } from '../style.js';
 import articlePic from '../../../statics/article_pic.jpeg';
 
-class List extends Component {
+class List extends PureComponent {
     render() {
         const { articleList, articlePage, getMoreArticleList } = this.props;
         return (
@@ -18,13 +19,15 @@ class List extends Component {
                     {
                         articleList.map((item) => {
                             return (
-                                <ArticleItem key={item.id}>
+                                <Link key={item.id} to="/detail">
+                                <ArticleItem>
                                     <ArticleInfo>
                                         <h3 className="article-title">{item.title}</h3>
                                         <p className="article-desc">{item.desc}</p>
                                     </ArticleInfo>
                                     <img className="pic" src={articlePic} alt="" />
                                 </ArticleItem>
+                                </Link>
                             )
                         })
                     }

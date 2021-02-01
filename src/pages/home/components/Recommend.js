@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
     RecommendWrapper,
@@ -9,7 +9,7 @@ import {
 import downloadPic from '../../../statics/download_pic.png';
 import recommendPic from '../../../statics/recommend_pic.png';
 
-class Recommend extends Component {
+class Recommend extends PureComponent {
     render() {
         const { recommendList } = this.props;
         return (
