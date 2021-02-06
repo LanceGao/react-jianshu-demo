@@ -19,14 +19,14 @@ class List extends PureComponent {
                     {
                         articleList.map((item) => {
                             return (
-                                <Link key={item.id} to="/detail">
-                                <ArticleItem>
-                                    <ArticleInfo>
-                                        <h3 className="article-title">{item.title}</h3>
-                                        <p className="article-desc">{item.desc}</p>
-                                    </ArticleInfo>
-                                    <img className="pic" src={articlePic} alt="" />
-                                </ArticleItem>
+                                <Link key={item.id} to={'/detail/' + item.id}>
+                                    <ArticleItem>
+                                        <ArticleInfo>
+                                            <h3 className="article-title">{item.title}</h3>
+                                            <p className="article-desc">{item.desc}</p>
+                                        </ArticleInfo>
+                                        <img className="pic" src={articlePic} alt="" />
+                                    </ArticleItem>
                                 </Link>
                             )
                         })
