@@ -12,10 +12,7 @@ export const login = (account, password) => {
             console.log('log', res)
             if (res.data.data) {
                 dispatch(changeLoginStatus())
-            } 
-            // else {
-
-            // }
+            }
         })
     }
 }

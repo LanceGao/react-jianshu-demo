@@ -52,9 +52,11 @@ import {
                     </NavSearchWrapper>
                 </Nav>
                 <Adition>
-                    <Button className="writting">
-                        <span className="iconfont">&#xe611;</span>
-                        写文章</Button>
+                    <Link to="/write">
+                        <Button className="writting">
+                            <span className="iconfont">&#xe611;</span>
+                            写文章</Button>
+                    </Link>
                     <Button className="reg">注册</Button>
                 </Adition>
             </HeaderWrapper>
